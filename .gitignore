@@ -1,0 +1,11 @@
+# AL compiler output and downloaded symbols
+*.app
+.alpackages/
+.snapshots/
+
+# Local development environment state
+.vscode/
+Azure/
+
+# Local assignment and learning-reference documents
+Docs/
