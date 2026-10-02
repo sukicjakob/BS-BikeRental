@@ -29,8 +29,14 @@ table 50103 "Rental Line"
             var
                 BicycleRecord: Record Bicycle;
             begin
-                if BicycleRecord.Get("Bicycle No.") then
-                    Description := BicycleRecord.Description;
+                if not BicycleRecord.Get("Bicycle No.") then
+                    Error('Bicycle with number %1 does not exist.', "Bicycle No.");
+
+                if BicycleRecord."Rental Type Code" = '' then
+                    Error('Bicycle %1 does not have a rental type.', BicycleRecord."No.");
+
+                Description := BicycleRecord.Description;
+                SetDailyRate(BicycleRecord);
             end;
         }
 
@@ -77,5 +83,29 @@ table 50103 "Rental Line"
     local procedure CalculateLineAmount()
     begin
         "Line Amount" := "Daily Rate" * "Rental Days";
+    end;
+
+    local procedure SetDailyRate(BicycleRecord: Record Bicycle)
+    var
+        RentalHeaderRecord: Record "Rental Header";
+        RentalPriceListRecord: Record "Rental Price List";
+        RentalTypeRecord: Record "Rental Type";
+    begin
+        if not RentalHeaderRecord.Get("Rental No.") then
+            Error('Rental header %1 does not exist.', "Rental No.");
+
+        RentalPriceListRecord.SetRange("Rental Type Code", BicycleRecord."Rental Type Code");
+        RentalPriceListRecord.SetFilter("Starting Date", '<=%1', RentalHeaderRecord."Rental Date");
+        RentalPriceListRecord.SetFilter("Ending Date", '>=%1', RentalHeaderRecord."Rental Date");
+
+        if RentalPriceListRecord.FindFirst() then begin
+            Validate("Daily Rate", RentalPriceListRecord."Daily Rate");
+            exit;
+        end;
+
+        if not RentalTypeRecord.Get(BicycleRecord."Rental Type Code") then
+            Error('No price is available for rental type %1.', BicycleRecord."Rental Type Code");
+
+        Validate("Daily Rate", RentalTypeRecord."Daily Rate");
     end;
 }
