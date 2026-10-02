@@ -955,6 +955,12 @@ End Function
         <Field Name="CustomerName">
           <DataField>CustomerName</DataField>
         </Field>
+        <Field Name="CustomerTotalAmount">
+          <DataField>CustomerTotalAmount</DataField>
+        </Field>
+        <Field Name="CustomerTotalAmountFormat">
+          <DataField>CustomerTotalAmountFormat</DataField>
+        </Field>
         <Field Name="RentalNo">
           <DataField>RentalNo</DataField>
         </Field>

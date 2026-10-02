@@ -49,4 +49,20 @@ page 50104 "Rental List"
             }
         }
     }
+
+    actions
+    {
+        area(Processing)
+        {
+            action(PrintRentalReport)
+            {
+                Caption = 'Rental Report';
+                ApplicationArea = All;
+                Image = Report;
+                Promoted = true;
+                PromotedCategory = Report;
+                RunObject = report "Rental Report";
+            }
+        }
+    }
 }

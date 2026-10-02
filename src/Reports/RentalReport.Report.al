@@ -34,6 +34,10 @@ report 50100 "Rental Report"
             {
             }
 
+            column(CustomerTotalAmount; CustomerTotal)
+            {
+            }
+
             dataitem(RentalHeader; "Rental Header")
             {
                 DataItemLink = "Customer No." = field("No.");
@@ -85,6 +89,23 @@ report 50100 "Rental Report"
                     }
                 }
             }
+
+            trigger OnAfterGetRecord()
+            begin
+                Clear(CustomerTotal);
+
+                RentalHeaderForTotal.Reset();
+                RentalHeaderForTotal.SetRange("Customer No.", "No.");
+
+                if RentalHeaderForTotal.FindSet() then
+                    repeat
+                        RentalHeaderForTotal.CalcFields("Total Amount");
+                        CustomerTotal += RentalHeaderForTotal."Total Amount";
+                    until RentalHeaderForTotal.Next() = 0;
+            end;
         }
     }
+    var
+        RentalHeaderForTotal: Record "Rental Header";
+        CustomerTotal: Decimal;
 }
