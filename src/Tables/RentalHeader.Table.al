@@ -20,6 +20,30 @@ table 50102 "Rental Header"
             Caption = 'Customer No.';
             NotBlank = true;
             TableRelation = Customer."No.";
+
+            trigger OnValidate()
+            var
+                CustomerRecord: Record Customer;
+                RentalHeaderRecord: Record "Rental Header";
+                ActiveRentalCount: Integer;
+            begin
+                if "Customer No." = '' then
+                    exit;
+
+                if not CustomerRecord.Get("Customer No.") then
+                    Error('Customer %1 does not exist.', "Customer No.");
+
+                RentalHeaderRecord.SetRange("Customer No.", "Customer No.");
+                RentalHeaderRecord.SetRange("Status", "Rental Status"::Active);
+
+                ActiveRentalCount := RentalHeaderRecord.Count();
+
+                if ActiveRentalCount >= CustomerRecord."Max Active Rentals" then
+                    Error(
+                        'Customer %1 has already reached the maximum number of active rentals (%2).',
+                        "Customer No.",
+                        CustomerRecord."Max Active Rentals");
+            end;
         }
 
         field(3; "Rental Date"; Date)
