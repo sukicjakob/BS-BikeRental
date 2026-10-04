@@ -20,6 +20,7 @@ xmlport 50100 "Bicycle Import"
 
                 fieldelement(RentalType; BicycleRecord."Rental Type Code")
                 {
+                    FieldValidate = No;
                 }
 
                 fieldelement(Description; BicycleRecord.Description)
@@ -30,8 +31,10 @@ xmlport 50100 "Bicycle Import"
                 var
                     RentalTypeRecord: Record "Rental Type";
                 begin
-                    if not RentalTypeRecord.Get(BicycleRecord."Rental Type Code") then
-                        Error('Rental type %1 does not exist.', BicycleRecord."Rental Type Code");
+                    if not RentalTypeRecord.Get(BicycleRecord."Rental Type Code") then begin
+                        CurrXmlport.Skip();
+                        exit;
+                    end;
 
                     BicycleRecord.Status := BicycleRecord.Status::Available;
                 end;

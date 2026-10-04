@@ -1,5 +1,6 @@
 namespace DefaultPublisher.BSBikeRental;
 
+using Microsoft.Sales.Customer;
 using Microsoft.Sales.Document;
 
 codeunit 50100 "Rental Management"
@@ -12,6 +13,8 @@ codeunit 50100 "Rental Management"
     begin
         if RentalHeader.Status <> RentalHeader.Status::Open then
             Error('Rental %1 must have status Open before it can be started. Current status: %2', RentalHeader."No.", RentalHeader.Status);
+
+        CheckCustomerActiveRentalLimit(RentalHeader."Customer No.");
 
         RentalLine.SetRange("Rental No.", RentalHeader."No.");
         if RentalLine.IsEmpty() then
@@ -115,5 +118,25 @@ codeunit 50100 "Rental Management"
         until RentalLine.Next() = 0;
 
         Page.Run(Page::"Sales Invoice", SalesHeader);
+    end;
+
+    local procedure CheckCustomerActiveRentalLimit(CustomerNo: Code[20])
+    var
+        CustomerRecord: Record Customer;
+        RentalHeaderRecord: Record "Rental Header";
+        ActiveRentalCount: Integer;
+    begin
+        if not CustomerRecord.Get(CustomerNo) then
+            Error('Customer %1 does not exist.', CustomerNo);
+
+        RentalHeaderRecord.SetRange("Customer No.", CustomerNo);
+        RentalHeaderRecord.SetRange(Status, RentalHeaderRecord.Status::Active);
+        ActiveRentalCount := RentalHeaderRecord.Count();
+
+        if ActiveRentalCount >= CustomerRecord."Max Active Rentals" then
+            Error(
+                'Customer %1 has already reached the maximum number of active rentals (%2).',
+                CustomerNo,
+                CustomerRecord."Max Active Rentals");
     end;
 }

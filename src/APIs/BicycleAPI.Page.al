@@ -7,8 +7,11 @@ page 50109 "Bicycle API"
     APIGroup = 'rental';
     APIVersion = 'v1.0';
 
+    InsertAllowed = false;
+    ModifyAllowed = false;
+    DeleteAllowed = false;
+
     SourceTable = Bicycle;
-    DelayedInsert = true;
     EntityName = 'bicycle';
     EntitySetName = 'bicycles';
 

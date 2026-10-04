@@ -39,10 +39,7 @@ table 50102 "Rental Header"
                 ActiveRentalCount := RentalHeaderRecord.Count();
 
                 if ActiveRentalCount >= CustomerRecord."Max Active Rentals" then
-                    Error(
-                        'Customer %1 has already reached the maximum number of active rentals (%2).',
-                        "Customer No.",
-                        CustomerRecord."Max Active Rentals");
+                    Error('Customer %1 has already reached the maximum number of active rentals (%2).', "Customer No.", CustomerRecord."Max Active Rentals");
             end;
         }
 
