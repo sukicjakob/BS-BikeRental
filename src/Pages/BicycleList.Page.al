@@ -42,4 +42,25 @@ page 50102 "Bicycle List"
             }
         }
     }
+
+    actions
+    {
+        area(Processing)
+        {
+            action(ImportBicycles)
+            {
+                Caption = 'Import Bicycles';
+                ApplicationArea = All;
+                Image = Import;
+                Promoted = true;
+                PromotedCategory = Process;
+
+                trigger OnAction()
+                begin
+                    Xmlport.Run(Xmlport::"Bicycle Import", true, true);
+                    CurrPage.Update(false);
+                end;
+            }
+        }
+    }
 }
