@@ -105,6 +105,22 @@ page 50105 "Rental Card"
                     CurrPage.Update(false);
                 end;
             }
+
+            action(CreateSalesInvoice)
+            {
+                Caption = 'Create Sales Invoice';
+                ApplicationArea = All;
+                Image = Invoice;
+                Promoted = true;
+                PromotedCategory = Process;
+
+                trigger OnAction()
+                var
+                    RentalManagement: Codeunit "Rental Management";
+                begin
+                    RentalManagement.CreateSalesInvoice(Rec);
+                end;
+            }
         }
     }
 }

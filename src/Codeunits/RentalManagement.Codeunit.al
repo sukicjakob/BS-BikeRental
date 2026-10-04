@@ -1,5 +1,7 @@
 namespace DefaultPublisher.BSBikeRental;
 
+using Microsoft.Sales.Document;
+
 codeunit 50100 "Rental Management"
 {
     procedure StartRental(var RentalHeader: Record "Rental Header")
@@ -67,5 +69,51 @@ codeunit 50100 "Rental Management"
         RentalHeader."Actual Return Date" := Today();
         RentalHeader.Status := RentalHeader.Status::Returned;
         RentalHeader.Modify(true);
+    end;
+
+    procedure CreateSalesInvoice(RentalHeader: Record "Rental Header")
+    var
+        SalesHeader: Record "Sales Header";
+        RentalLine: Record "Rental Line";
+        SalesLine: Record "Sales Line";
+        LineNo: Integer;
+    begin
+        if RentalHeader.Status <> RentalHeader.Status::Returned then
+            Error('Rental %1 must have status Returned before it can be invoiced.', RentalHeader."No.");
+
+        RentalLine.SetRange("Rental No.", RentalHeader."No.");
+
+        if RentalLine.IsEmpty() then
+            Error('Rental %1 has no rental lines.', RentalHeader."No.");
+
+        SalesHeader.Init();
+        SalesHeader."Document Type" := SalesHeader."Document Type"::Invoice;
+        SalesHeader.Insert(true);
+
+        SalesHeader.Validate("Sell-to Customer No.", RentalHeader."Customer No.");
+        SalesHeader.Validate("Document Date", Today());
+        SalesHeader.Validate("Posting Date", Today());
+        SalesHeader.Modify(true);
+
+        LineNo := 0;
+        RentalLine.FindSet();
+
+        repeat
+            LineNo += 10000;
+            SalesLine.Init();
+            SalesLine."Document Type" := SalesHeader."Document Type";
+            SalesLine."Document No." := SalesHeader."No.";
+            SalesLine."Line No." := LineNo;
+            SalesLine.Insert(true);
+
+            SalesLine.Validate("Type", SalesLine."Type"::Item);
+            SalesLine.Validate("No.", 'RENTAL');
+            SalesLine.Validate(Description, RentalLine.Description);
+            SalesLine.Validate(Quantity, RentalLine."Rental Days");
+            SalesLine.Validate("Unit Price", RentalLine."Daily Rate");
+            SalesLine.Modify(true);
+        until RentalLine.Next() = 0;
+
+        Page.Run(Page::"Sales Invoice", SalesHeader);
     end;
 }
