@@ -30,7 +30,18 @@ xmlport 50100 "Bicycle Import"
                 trigger OnBeforeInsertRecord()
                 var
                     RentalTypeRecord: Record "Rental Type";
+                    ExistingBicycle: Record "Bicycle";
                 begin
+                    if BicycleRecord."No." = '' then begin
+                        CurrXMLport.Skip();
+                        exit;
+                    end;
+
+                    if ExistingBicycle.Get(BicycleRecord."No.") then begin
+                        CurrXMLport.Skip();
+                        exit;
+                    end;
+
                     if not RentalTypeRecord.Get(BicycleRecord."Rental Type Code") then begin
                         CurrXmlport.Skip();
                         exit;

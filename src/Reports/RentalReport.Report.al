@@ -22,7 +22,7 @@ report 50100 "Rental Report"
             {
             }
 
-            column(PrintDate; Today())
+            column(PrintDate; Format(Today(), 0, '<Day,2>.<Month,2>.<Year4>'))
             {
             }
 
@@ -52,15 +52,15 @@ report 50100 "Rental Report"
                 {
                 }
 
-                column(RentalDate; "Rental Date")
+                column(RentalDate; Format("Rental Date", 0, '<Day,2>.<Month,2>.<Year4>'))
                 {
                 }
 
-                column(ExpectedReturnDate; "Expected Return Date")
+                column(ExpectedReturnDate; Format("Expected Return Date", 0, '<Day,2>.<Month,2>.<Year4>'))
                 {
                 }
 
-                column(ActualReturnDate; "Actual Return Date")
+                column(ActualReturnDate; Format("Actual Return Date", 0, '<Day,2>.<Month,2>.<Year4>'))
                 {
                 }
 

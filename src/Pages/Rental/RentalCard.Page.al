@@ -14,6 +14,7 @@ page 50105 "Rental Card"
             group(General)
             {
                 Caption = 'General';
+                Editable = RentalEditable;
 
                 field("No."; Rec."No.")
                 {
@@ -28,12 +29,14 @@ page 50105 "Rental Card"
                 field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
             }
 
             group(Dates)
             {
                 Caption = 'Dates';
+                Editable = RentalEditable;
 
                 field("Rental Date"; Rec."Rental Date")
                 {
@@ -48,6 +51,7 @@ page 50105 "Rental Card"
                 field("Actual Return Date"; Rec."Actual Return Date")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
             }
 
@@ -56,6 +60,7 @@ page 50105 "Rental Card"
                 ApplicationArea = All;
                 SubPageLink = "Rental No." = field("No.");
                 UpdatePropagation = Both;
+                Editable = RentalEditable;
             }
 
             group(Totals)
@@ -123,4 +128,12 @@ page 50105 "Rental Card"
             }
         }
     }
+
+    var
+        RentalEditable: Boolean;
+
+    trigger OnAfterGetCurrRecord()
+    begin
+        RentalEditable := Rec.Status = Rec.Status::Open;
+    end;
 }

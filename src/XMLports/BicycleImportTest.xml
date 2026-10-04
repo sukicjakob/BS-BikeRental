@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bicycles>
+    <Bicycle>
+        <No>TEST-BIKE-01</No>
+        <RentalType>CITY</RentalType>
+        <Description>Valid city bicycle</Description>
+    </Bicycle>
+    <Bicycle>
+        <No>TEST-BIKE-01</No>
+        <RentalType>CITY</RentalType>
+        <Description>Duplicate bicycle number</Description>
+    </Bicycle>
+    <Bicycle>
+        <No></No>
+        <RentalType>MTB</RentalType>
+        <Description>Blank bicycle number</Description>
+    </Bicycle>
+    <Bicycle>
+        <No>TEST-BIKE-02</No>
+        <RentalType>INVALID</RentalType>
+        <Description>Invalid rental type</Description>
+    </Bicycle>
+    <Bicycle>
+        <No>TEST-BIKE-03</No>
+        <RentalType>MTB</RentalType>
+        <Description>Valid mountain bicycle</Description>
+    </Bicycle>
+</Bicycles>

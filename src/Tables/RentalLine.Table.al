@@ -27,13 +27,24 @@ table 50103 "Rental Line"
 
             trigger OnValidate()
             var
-                BicycleRecord: Record Bicycle;
+                BicycleRecord: Record "Bicycle";
+                ExistingRentalLine: Record "Rental Line";
             begin
                 if not BicycleRecord.Get("Bicycle No.") then
                     Error('Bicycle with number %1 does not exist.', "Bicycle No.");
 
                 if BicycleRecord."Rental Type Code" = '' then
                     Error('Bicycle %1 does not have a rental type.', BicycleRecord."No.");
+
+                ExistingRentalLine.SetRange("Rental No.", "Rental No.");
+                ExistingRentalLine.SetRange("Bicycle No.", "Bicycle No.");
+                ExistingRentalLine.SetFilter("Line No.", '<>%1', "Line No.");
+
+                if not ExistingRentalLine.IsEmpty() then
+                    Error('Bicycle %1 is already present on rental %2.', "Bicycle No.", "Rental No.");
+
+                if BicycleRecord.Status <> BicycleRecord.Status::Available then
+                    Error('Bicycle %1 is not available. Current status: %2.', BicycleRecord."No.", BicycleRecord.Status);
 
                 Description := BicycleRecord.Description;
                 SetDailyRate(BicycleRecord);
@@ -80,6 +91,21 @@ table 50103 "Rental Line"
         }
     }
 
+    trigger OnInsert()
+    begin
+        EnsureRentalIsOpen();
+    end;
+
+    trigger OnModify()
+    begin
+        EnsureRentalIsOpen();
+    end;
+
+    trigger OnDelete()
+    begin
+        EnsureRentalIsOpen();
+    end;
+
     local procedure CalculateLineAmount()
     begin
         "Line Amount" := "Daily Rate" * "Rental Days";
@@ -107,5 +133,16 @@ table 50103 "Rental Line"
             Error('No price is available for rental type %1.', BicycleRecord."Rental Type Code");
 
         Validate("Daily Rate", RentalTypeRecord."Daily Rate");
+    end;
+
+    local procedure EnsureRentalIsOpen()
+    var
+        RentalHeaderRecord: Record "Rental Header";
+    begin
+        if not RentalHeaderRecord.Get("Rental No.") then
+            Error('Rental header %1 does not exist.', "Rental No.");
+
+        if RentalHeaderRecord.Status <> RentalHeaderRecord.Status::Open then
+            Error('Rental lines cannot be changed because rental %1 has status %2.', "Rental No.", RentalHeaderRecord.Status);
     end;
 }
