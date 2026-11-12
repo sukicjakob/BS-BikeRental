@@ -43,6 +43,46 @@ codeunit 50100 "Rental Management"
         RentalHeader.Modify(true);
     end;
 
+    procedure CancelRental(var RentalHeader: Record "Rental Header"; CancellationReason: Text[100])
+    var
+        RentalLine: Record "Rental Line";
+        BicycleRecord: Record "Bicycle";
+    begin
+        if DelChr(CancellationReason, '=', ' ') = '' then
+            Error('Enter a reason for the cancellation of rental %1.', RentalHeader."No.");
+
+        RentalHeader.LockTable();
+        RentalHeader.Get(RentalHeader."No.");
+
+        case RentalHeader.Status of
+            RentalHeader.Status::Open:
+                ;// Ni potrebno urediti ničesar;
+
+            RentalHeader.Status::Active:
+                begin
+                    RentalLine.SetRange("Rental No.", RentalHeader."No.");
+                    RentalLine.SetRange("Line Type", RentalLine."Line Type"::Rental);
+
+                    if RentalLine.FindSet() then
+                        repeat
+                            BicycleRecord.Get(RentalLine."Bicycle No.");
+                            BicycleRecord.Status := BicycleRecord.Status::Available;
+                            BicycleRecord.Modify(true);
+                        until RentalLine.Next() = 0;
+                end;
+
+            RentalHeader.Status::Returned:
+                if RentalHeader."Sales Order No." <> '' then
+                    Error('Rental %1 cannot be cancelled because sales order %2 has already been created for it.', RentalHeader."No.", RentalHeader."Sales Order No.");
+            else
+                Error('Rental %1 cannot be cancelled. Current status: %2.', RentalHeader."No.", RentalHeader.Status);
+        end;
+
+        RentalHeader."Cancellation Reason" := CancellationReason;
+        RentalHeader.Status := RentalHeader.Status::Cancelled;
+        RentalHeader.Modify(true);
+    end;
+
     procedure ProcessReturn(var RentalHeader: Record "Rental Header")
     var
         RentalLine: Record "Rental Line";
@@ -197,11 +237,11 @@ codeunit 50100 "Rental Management"
         OriginalLine.SetRange("Line Type", OriginalLine."Line Type"::Rental);
         OriginalLine.SetRange("Bicycle No.", BicycleNo);
 
-        if OriginalLine.FindSet() then
-            repeat
-                if OriginalLine."Daily Rate" <= 0 then
-                    Error('The original daily rate must be greater than 0.');
-            until OriginalLine.Next() = 0;
+        if not OriginalLine.FindFirst() then
+            Error('Bicycle %1 is not on rental %2.', BicycleNo, RentalHeader."No.");
+
+        if OriginalLine."Daily Rate" <= 0 then
+            Error('The daily rate for bicycle %1 must be greater than 0.', BicycleNo);
 
         // Upoštevamo morebitne predhodne popravke
         ExistingAdjustment.SetRange("Rental No.", RentalHeader."No.");

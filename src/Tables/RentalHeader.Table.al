@@ -2,6 +2,7 @@ namespace DefaultPublisher.BSBikeRental;
 
 using Microsoft.Sales.Customer;
 using Microsoft.Sales.Document;
+using Microsoft.Foundation.NoSeries;
 
 table 50102 "Rental Header"
 {
@@ -13,7 +14,18 @@ table 50102 "Rental Header"
         field(1; "No."; Code[20])
         {
             Caption = 'No.';
-            NotBlank = true;
+
+            trigger OnValidate()
+            var
+                RentalSetup: Record "Rental Setup";
+                NoSeries: Codeunit "No. Series";
+            begin
+                if "No." <> xRec."No." then begin
+                    RentalSetup.Get();
+                    NoSeries.TestManual(RentalSetup."Rental Nos.");
+                    "No. Series" := '';
+                end;
+            end;
         }
 
         field(2; "Customer No."; Code[20])
@@ -91,6 +103,19 @@ table 50102 "Rental Header"
             Editable = false;
             TableRelation = "Sales Header"."No." where("Document Type" = const(Order));
         }
+
+        field(9; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            Editable = false;
+            TableRelation = "No. Series";
+        }
+
+        field(10; "Cancellation Reason"; Text[100])
+        {
+            Caption = 'Cancellation Reason';
+            Editable = false;
+        }
     }
 
     keys
@@ -100,4 +125,30 @@ table 50102 "Rental Header"
             Clustered = true;
         }
     }
+
+    trigger OnInsert()
+    var
+        RentalSetup: Record "Rental Setup";
+        NoSeries: Codeunit "No. Series";
+    begin
+        if "No." = '' then begin
+            RentalSetup.Get();
+            RentalSetup.TestField("Rental Nos.");
+            "No. Series" := RentalSetup."Rental Nos.";
+            "No." := NoSeries.GetNextNo("No. Series");
+        end;
+    end;
+
+    procedure AssistEdit(OldRentalHeader: Record "Rental Header"): Boolean
+    var
+        RentalSetup: Record "Rental Setup";
+        NoSeries: Codeunit "No. Series";
+    begin
+        RentalSetup.Get();
+        RentalSetup.TestField("Rental Nos.");
+        if NoSeries.LookupRelatedNoSeries(RentalSetup."Rental Nos.", OldRentalHeader."No. Series", "No. Series") then begin
+            "No." := NoSeries.GetNextNo("No. Series");
+            exit(true);
+        end;
+    end;
 }

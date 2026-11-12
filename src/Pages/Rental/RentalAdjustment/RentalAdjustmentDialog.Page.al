@@ -17,7 +17,6 @@ page 50110 "Rental Adjustment Dialog"
                 {
                     ApplicationArea = All;
                     Caption = 'Bicycle No.';
-                    TableRelation = Bicycle."No.";
                     ToolTip = 'Specifies the bicycle affected by the adjustment';
 
                     trigger OnLookup(var Text: Text): Boolean
@@ -37,6 +36,21 @@ page 50110 "Rental Adjustment Dialog"
                         end;
 
                         // exit(true);
+                    end;
+
+                    trigger OnValidate()
+                    var
+                        RentalLine: Record "Rental Line";
+                    begin
+                        if BicycleNo = '' then
+                            exit;
+
+                        RentalLine.SetRange("Rental No.", RentalNo);
+                        RentalLine.SetRange("Line Type", RentalLine."Line Type"::Rental);
+                        RentalLine.SetRange("Bicycle No.", BicycleNo);
+
+                        if RentalLine.IsEmpty() then
+                            Error('Bicycle %1 is not on rental %2.', BicycleNo, RentalNo);
                     end;
                 }
 

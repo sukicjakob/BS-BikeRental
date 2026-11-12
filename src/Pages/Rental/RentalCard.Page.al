@@ -19,6 +19,12 @@ page 50105 "Rental Card"
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
+
+                    trigger OnAssistEdit()
+                    begin
+                        if Rec.AssistEdit(xRec) then
+                            CurrPage.Update();
+                    end;
                 }
 
                 field("Customer No."; Rec."Customer No.")
@@ -30,6 +36,12 @@ page 50105 "Rental Card"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                }
+
+                field("Cancellation Reason"; Rec."Cancellation Reason")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies why the rental was cancelled.';
                 }
             }
 
@@ -85,6 +97,9 @@ page 50105 "Rental Card"
                 ApplicationArea = All;
                 Promoted = true;
                 PromotedCategory = Process;
+                Enabled = Rec.Status = Rec.Status::Open;
+                ToolTip = 'Starts the rental. The bicycles on the rental become rented.';
+                Image = Start;
 
                 trigger OnAction()
                 var
@@ -101,6 +116,9 @@ page 50105 "Rental Card"
                 ApplicationArea = All;
                 Promoted = true;
                 PromotedCategory = Process;
+                Enabled = Rec.Status = Rec.Status::Active;
+                ToolTip = 'Processes the return of the bicycles and calculates the actual rental days.';
+                Image = ReturnOrder;
 
                 trigger OnAction()
                 var
@@ -132,7 +150,7 @@ page 50105 "Rental Card"
 
             action(AddAdjustment)
             {
-                Caption = 'Add Ajdustment';
+                Caption = 'Add Adjustment';
                 ApplicationArea = All;
                 Image = EditAdjustments;
                 Promoted = true;
@@ -153,14 +171,41 @@ page 50105 "Rental Card"
                     end;
                 end;
             }
+
+            action(CancelRental)
+            {
+                Caption = 'Cancel Rental';
+                ApplicationArea = All;
+                Image = Cancel;
+                Promoted = true;
+                PromotedCategory = Process;
+                Enabled = CanCancel;
+                Tooltip = 'Cancels the rental. Rented bicycles become available again.';
+
+                trigger OnAction()
+                var
+                    RentalManagement: Codeunit "Rental Management";
+                    CancelDialog: Page "Rental Cancel Dialog";
+                begin
+                    CancelDialog.SetRentalNo(Rec."No.");
+
+                    if CancelDialog.RunModal() <> Action::OK then
+                        exit;
+
+                    RentalManagement.CancelRental(Rec, CancelDialog.GetCancellationReason());
+                    CurrPage.Update(false);
+                end;
+            }
         }
     }
 
     var
         RentalEditable: Boolean;
+        CanCancel: Boolean;
 
     trigger OnAfterGetCurrRecord()
     begin
         RentalEditable := Rec.Status = Rec.Status::Open;
+        CanCancel := (Rec.Status in [Rec.Status::Open, Rec.Status::Active]) or ((Rec.Status = Rec.Status::Returned) and (Rec."Sales Order No." = ''));
     end;
 }
