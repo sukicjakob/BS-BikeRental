@@ -111,19 +111,46 @@ page 50105 "Rental Card"
                 end;
             }
 
-            action(CreateSalesInvoice)
+            action(CreateSalesOrder)
             {
-                Caption = 'Create Sales Invoice';
+                Caption = 'Create Sales Order';
+                Enabled = (Rec.Status = Rec.Status::Returned) and (Rec."Sales Order No." = '');
                 ApplicationArea = All;
-                Image = Invoice;
+                Image = Order;
                 Promoted = true;
                 PromotedCategory = Process;
+                ToolTip = 'Create a sales order for the returned rental.';
 
                 trigger OnAction()
                 var
                     RentalManagement: Codeunit "Rental Management";
                 begin
-                    RentalManagement.CreateSalesInvoice(Rec);
+                    RentalManagement.CreateSalesOrder(Rec);
+                    CurrPage.Update(false);
+                end;
+            }
+
+            action(AddAdjustment)
+            {
+                Caption = 'Add Ajdustment';
+                ApplicationArea = All;
+                Image = EditAdjustments;
+                Promoted = true;
+                PromotedCategory = Process;
+                Enabled = Rec.Status = Rec.Status::Returned;
+                ToolTip = 'Adds a negative rental adjustment and updates an existing open sales order.';
+
+                trigger OnAction()
+                var
+                    AdjustmentDialog: Page "Rental Adjustment Dialog";
+                    RentalManagement: Codeunit "Rental Management";
+                begin
+                    AdjustmentDialog.SetRentalNo(Rec."No.");
+
+                    if AdjustmentDialog.RunModal() = Action::OK then begin
+                        RentalManagement.AddRentalAdjustment(Rec, AdjustmentDialog.GetBicycleNo(), AdjustmentDialog.GetAdjustmentDays(), AdjustmentDialog.GetReason());
+                        CurrPage.Update(false);
+                    end;
                 end;
             }
         }

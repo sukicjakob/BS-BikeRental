@@ -23,7 +23,7 @@ tableextension 50100 "Customer Rental Ext." extends Customer
         {
             Caption = 'Max Active Rentals';
             DataClassification = CustomerContent;
-            MinValue = 0;
+            MinValue = 1;
         }
     }
 }

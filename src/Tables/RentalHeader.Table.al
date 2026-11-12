@@ -1,6 +1,7 @@
 namespace DefaultPublisher.BSBikeRental;
 
 using Microsoft.Sales.Customer;
+using Microsoft.Sales.Document;
 
 table 50102 "Rental Header"
 {
@@ -82,6 +83,13 @@ table 50102 "Rental Header"
             FieldClass = FlowField;
             CalcFormula = Sum("Rental Line"."Line Amount" where("Rental No." = field("No.")));
             Editable = false;
+        }
+
+        field(8; "Sales Order No."; Code[20])
+        {
+            Caption = 'Sales Order No.';
+            Editable = false;
+            TableRelation = "Sales Header"."No." where("Document Type" = const(Order));
         }
     }
 

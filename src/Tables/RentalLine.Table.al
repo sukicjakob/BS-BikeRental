@@ -37,6 +37,7 @@ table 50103 "Rental Line"
                     Error('Bicycle %1 does not have a rental type.', BicycleRecord."No.");
 
                 ExistingRentalLine.SetRange("Rental No.", "Rental No.");
+                ExistingRentalLine.SetRange("Line Type", "Line Type"::Rental);
                 ExistingRentalLine.SetRange("Bicycle No.", "Bicycle No.");
                 ExistingRentalLine.SetFilter("Line No.", '<>%1', "Line No.");
 
@@ -79,6 +80,13 @@ table 50103 "Rental Line"
         field(7; "Line Amount"; Decimal)
         {
             Caption = 'Line Amount';
+            Editable = false;
+        }
+
+        field(8; "Line Type"; Enum "Rental Line Type")
+        {
+            Caption = 'Line Type';
+            InitValue = Rental;
             Editable = false;
         }
     }
