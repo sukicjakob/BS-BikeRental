@@ -1,4 +1,3 @@
-namespace DefaultPublisher.BSBikeRental;
 
 page 50102 "Bicycle List"
 {

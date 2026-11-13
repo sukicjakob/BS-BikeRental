@@ -1,4 +1,3 @@
-namespace DefaultPublisher.BSBikeRental;
 
 page 50110 "Rental Adjustment Dialog"
 {

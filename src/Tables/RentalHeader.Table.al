@@ -1,8 +1,4 @@
-namespace DefaultPublisher.BSBikeRental;
 
-using Microsoft.Sales.Customer;
-using Microsoft.Sales.Document;
-using Microsoft.Foundation.NoSeries;
 
 table 50102 "Rental Header"
 {
@@ -125,6 +121,8 @@ table 50102 "Rental Header"
             Clustered = true;
         }
     }
+    var
+        No: Codeunit "No. Series";
 
     trigger OnInsert()
     var

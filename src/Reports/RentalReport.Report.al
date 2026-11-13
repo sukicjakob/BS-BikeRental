@@ -1,6 +1,4 @@
-namespace DefaultPublisher.BSBikeRental;
 
-using Microsoft.Sales.Customer;
 
 report 50100 "Rental Report"
 {

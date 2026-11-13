@@ -1,4 +1,3 @@
-namespace DefaultPublisher.BSBikeRental;
 
 table 50104 "Rental Price List"
 {

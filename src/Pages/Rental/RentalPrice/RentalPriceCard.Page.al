@@ -1,4 +1,3 @@
-namespace DefaultPublisher.BSBikeRental;
 
 page 50108 "Rental Price Card"
 {

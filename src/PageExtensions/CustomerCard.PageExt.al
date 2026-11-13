@@ -1,6 +1,4 @@
-namespace DefaultPublisher.BSBikeRental;
 
-using Microsoft.Sales.Customer;
 
 pageextension 50100 "Customer Card Rental Ext." extends "Customer Card"
 {

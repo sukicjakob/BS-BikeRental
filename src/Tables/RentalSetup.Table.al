@@ -1,6 +1,4 @@
-namespace DefaultPublisher.BSBikeRental;
 
-using Microsoft.Foundation.NoSeries;
 
 table 50105 "Rental Setup"
 {

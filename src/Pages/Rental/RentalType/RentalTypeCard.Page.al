@@ -1,4 +1,3 @@
-namespace DefaultPublisher.BSBikeRental;
 
 page 50101 "Rental Type Card"
 {
@@ -34,6 +33,13 @@ page 50101 "Rental Type Card"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Rental Item No."; Rec."Rental Item No.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the service item that represents this rental type in sales price lists and on sales orders.';
+                }
+
                 field(MaxRentalDays; Rec."Max Rental Days")
                 {
                     ApplicationArea = All;

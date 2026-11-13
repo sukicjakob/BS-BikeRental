@@ -1,8 +1,3 @@
-namespace DefaultPublisher.BSBikeRental;
-
-using Microsoft.Sales.Customer;
-using Microsoft.Sales.Document;
-
 codeunit 50100 "Rental Management"
 {
     procedure StartRental(var RentalHeader: Record "Rental Header")

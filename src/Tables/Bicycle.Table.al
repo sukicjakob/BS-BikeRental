@@ -1,4 +1,3 @@
-namespace DefaultPublisher.BSBikeRental;
 
 table 50101 "Bicycle"
 {

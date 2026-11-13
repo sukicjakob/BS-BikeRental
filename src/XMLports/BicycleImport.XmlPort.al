@@ -1,4 +1,3 @@
-namespace DefaultPublisher.BSBikeRental;
 
 xmlport 50100 "Bicycle Import"
 {

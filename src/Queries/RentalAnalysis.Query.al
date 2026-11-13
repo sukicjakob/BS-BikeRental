@@ -1,6 +1,4 @@
-namespace DefaultPublisher.BSBikeRental;
 
-using Microsoft.Sales.Customer;
 
 query 50100 "Rental Analysis"
 {

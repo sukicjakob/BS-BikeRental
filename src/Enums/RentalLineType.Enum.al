@@ -1,4 +1,3 @@
-namespace DefaultPublisher.BSBikeRental;
 
 enum 50102 "Rental Line Type"
 {

@@ -1,6 +1,4 @@
-namespace DefaultPublisher.BSBikeRental;
 
-using Microsoft.Sales.Customer;
 
 tableextension 50100 "Customer Rental Ext." extends Customer
 {

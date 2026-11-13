@@ -1,4 +1,3 @@
-namespace DefaultPublisher.BSBikeRental;
 
 table 50100 "Rental Type"
 {
@@ -46,6 +45,12 @@ table 50100 "Rental Type"
                 if "Requires Deposit" and ("Deposit Amount" <= 0) then
                     Error('Deposit Amount must be greater than 0 when a deposit is required.');
             end;
+        }
+
+        field(7; "Rental Item No."; Code[20])
+        {
+            Caption = 'Rental Item No.';
+            TableRelation = Item."No." where(Type = filter(Service | "Non-Inventory"));
         }
     }
 

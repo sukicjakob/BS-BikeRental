@@ -1,7 +1,4 @@
-namespace DefaultPublisher.BSBikeRental;
 
-using Microsoft.Sales.Document;
-using Microsoft.Sales.Posting;
 
 codeunit 50101 "Rental Event Subscribers"
 {
