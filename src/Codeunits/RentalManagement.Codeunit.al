@@ -164,10 +164,11 @@ codeunit 50100 "Rental Management"
             SalesLine.Insert(true);
 
             SalesLine.Validate("Type", SalesLine."Type"::Item);
-            SalesLine.Validate("No.", 'RENTAL');
+            SalesLine.Validate("No.", GetSalesItemNo(RentalLine));
             SalesLine.Validate(Description, RentalLine.Description);
             SalesLine.Validate(Quantity, RentalLine."Rental Days");
             SalesLine.Validate("Unit Price", RentalLine."Daily Rate");
+            SalesLine.Validate("Line Discount %", RentalLine."Line Discount %");
             SalesLine.Modify(true);
         until RentalLine.Next() = 0;
 
@@ -267,6 +268,7 @@ codeunit 50100 "Rental Management"
         AdjustmentLine.Description := AdjustmentReason;
         AdjustmentLine.Validate("Rental Days", AdjustmentDays);
         AdjustmentLine.Validate("Daily Rate", -OriginalLine."Daily Rate");
+        AdjustmentLine.Validate("Line Discount %", OriginalLine."Line Discount %");
         AdjustmentLine.Insert(false);
 
         // Če račun že obstaja se doda samo nova negativna vrstica
@@ -287,11 +289,25 @@ codeunit 50100 "Rental Management"
             SalesLine.Insert(true);
 
             SalesLine.Validate(Type, SalesLine.Type::Item);
-            SalesLine.Validate("No.", 'RENTAL');
+            SalesLine.Validate("No.", GetSalesItemNo(AdjustmentLine));
             SalesLine.Validate(Description, AdjustmentLine.Description);
             SalesLine.Validate(Quantity, AdjustmentLine."Rental Days");
-            SalesLine.validate("Unit Price", AdjustmentLine."Daily Rate");
+            SalesLine.Validate("Unit Price", AdjustmentLine."Daily Rate");
+            SalesLine.Validate("Line Discount %", AdjustmentLine."Line Discount %");
             SalesLine.Modify(true);
         end;
+    end;
+
+    local procedure GetSalesItemNo(RentalLine: Record "Rental Line"): Code[20]
+    var
+        BicycleRecord: Record Bicycle;
+        RentalTypeRecord: Record "Rental Type";
+    begin
+        if BicycleRecord.Get(RentalLine."Bicycle No.") then
+            if RentalTypeRecord.Get(BicycleRecord."Rental Type Code") then
+                if RentalTypeRecord."Rental Item No." <> '' then
+                    exit(RentalTypeRecord."Rental Item No.");
+
+        exit('RENTAL');
     end;
 }

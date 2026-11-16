@@ -1,6 +1,6 @@
 codeunit 50102 "Rental Price Calculation"
 {
-    procedure GetDailyRate(CustomerNo: Code[20]; ItemNo: Code[20]; PriceDate: Date; RentalDays: Integer): Decimal
+    procedure GetSalesPrice(CustomerNo: Code[20]; ItemNo: Code[20]; PriceDate: Date; RentalDays: Integer; var UnitPrice: Decimal; var LineDiscountPct: Decimal)
     var
         TempSalesHeader: Record "Sales Header" temporary;
         TempSalesLine: Record "Sales Line" temporary;
@@ -8,10 +8,11 @@ codeunit 50102 "Rental Price Calculation"
         CreateTempSalesHeader(TempSalesHeader, CustomerNo, PriceDate);
         CreateTempSalesLine(TempSalesLine, TempSalesHeader, ItemNo, RentalDays);
 
-        exit(TempSalesLine."Unit Price");
+        UnitPrice := TempSalesLine."Unit Price";
+        LineDiscountPct := TempSalesLine."Line Discount %";
     end;
 
-    procedure CreateTempSalesHeader(var TempSalesHeader: Record "Sales Header" temporary; CustomerNo: Code[20]; PriceDate: Date)
+    local procedure CreateTempSalesHeader(var TempSalesHeader: Record "Sales Header" temporary; CustomerNo: Code[20]; PriceDate: Date)
     begin
         TempSalesHeader.Init();
         TempSalesHeader."Document Type" := TempSalesHeader."Document Type"::Order;

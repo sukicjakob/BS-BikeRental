@@ -72,6 +72,7 @@ table 50103 "Rental Line"
 
             trigger OnValidate()
             begin
+                UpdateDailyRateForRentalDays();
                 CalculateLineAmount();
             end;
         }
@@ -87,6 +88,19 @@ table 50103 "Rental Line"
             Caption = 'Line Type';
             InitValue = Rental;
             Editable = false;
+        }
+
+        field(9; "Line Discount %"; Decimal)
+        {
+            Caption = 'Line Discount %';
+            DecimalPlaces = 0 : 5;
+            MinValue = 0;
+            MaxValue = 100;
+
+            trigger OnValidate()
+            begin
+                CalculateLineAmount();
+            end;
         }
     }
 
@@ -114,32 +128,89 @@ table 50103 "Rental Line"
     end;
 
     local procedure CalculateLineAmount()
+    var
+        GrossAmount: Decimal;
     begin
-        "Line Amount" := "Daily Rate" * "Rental Days";
+        // Bruto znesek pred popustom
+        GrossAmount := Round("Daily Rate" * "Rental Days");
+        "Line Amount" := GrossAmount - Round(GrossAmount * "Line Discount %" / 100);
     end;
 
     local procedure SetDailyRate(BicycleRecord: Record Bicycle)
     var
         RentalHeaderRecord: Record "Rental Header";
-        RentalPriceListRecord: Record "Rental Price List";
         RentalTypeRecord: Record "Rental Type";
     begin
         if not RentalHeaderRecord.Get("Rental No.") then
             Error('Rental header %1 does not exist.', "Rental No.");
 
-        RentalPriceListRecord.SetRange("Rental Type Code", BicycleRecord."Rental Type Code");
+        if not RentalTypeRecord.Get(BicycleRecord."Rental Type Code") then
+            Error('Rental type %1 does not exist.', BicycleRecord."Rental Type Code");
+
+        if RentalTypeRecord."Rental Item No." <> '' then
+            ApplySalesPrice(RentalHeaderRecord, RentalTypeRecord)
+        else begin
+            Validate("Line Discount %", 0);
+            Validate("Daily Rate", GetDailyRateFromRentalPriceList(RentalHeaderRecord, RentalTypeRecord));
+        end;
+    end;
+
+    local procedure ApplySalesPrice(RentalHeaderRecord: Record "Rental Header"; RentalTypeRecord: Record "Rental Type")
+    var
+        RentalPriceCalculation: Codeunit "Rental Price Calculation";
+        DailyRate: Decimal;
+        LineDiscountPct: Decimal;
+    begin
+        RentalHeaderRecord.TestField("Customer No.");
+
+        RentalPriceCalculation.GetSalesPrice(
+            RentalHeaderRecord."Customer No.",
+            RentalTypeRecord."Rental Item No.",
+            RentalHeaderRecord."Rental Date",
+            "Rental Days",
+            DailyRate,
+            LineDiscountPct
+        );
+
+        if DailyRate <= 0 then
+            Error('No sales price was found for item %1 (rental type %2).', RentalTypeRecord."Rental Item No.", RentalTypeRecord.Code);
+
+        Validate("Daily Rate", DailyRate);
+        Validate("Line Discount %", LineDiscountPct);
+    end;
+
+    local procedure GetDailyRateFromRentalPriceList(RentalHeaderRecord: Record "Rental Header"; RentalTypeRecord: Record "Rental Type"): Decimal
+    var
+        RentalPriceListRecord: Record "Rental Price List";
+    begin
+        RentalPriceListRecord.SetRange("Rental Type Code", RentalTypeRecord.Code);
         RentalPriceListRecord.SetFilter("Starting Date", '<=%1', RentalHeaderRecord."Rental Date");
         RentalPriceListRecord.SetFilter("Ending Date", '>=%1', RentalHeaderRecord."Rental Date");
 
-        if RentalPriceListRecord.FindFirst() then begin
-            Validate("Daily Rate", RentalPriceListRecord."Daily Rate");
+        if RentalPriceListRecord.FindFirst() then
+            exit(RentalPriceListRecord."Daily Rate");
+
+        exit(RentalTypeRecord."Daily Rate");
+    end;
+
+    local procedure UpdateDailyRateForRentalDays()
+    var
+        BicycleRecord: Record Bicycle;
+        RentalTypeRecord: Record "Rental Type";
+    begin
+        if "Line Type" <> "Line Type"::Rental then
             exit;
-        end;
+
+        if not BicycleRecord.Get("Bicycle No.") then
+            exit;
 
         if not RentalTypeRecord.Get(BicycleRecord."Rental Type Code") then
-            Error('No price is available for rental type %1.', BicycleRecord."Rental Type Code");
+            exit;
 
-        Validate("Daily Rate", RentalTypeRecord."Daily Rate");
+        if RentalTypeRecord."Rental Item No." = '' then
+            exit;
+
+        SetDailyRate(BicycleRecord);
     end;
 
     local procedure EnsureRentalIsOpen()

@@ -128,6 +128,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table Rental Line - Field Line Amount - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 1466212778 - Field 2702998682 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Line Discount %</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Line - Field Line Discount % - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 1466212778 - Field 3320823955 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Line No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -442,6 +447,11 @@
           <source>Rental Lines</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Rental Line Subpage - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2747378563 - Control 2702998682 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the line discount percentage from the sales price list.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Rental Line Subpage - Control Line Discount % - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 2747378563 - Control 158172202 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies whether the line is a rental or an adjustment.</source>

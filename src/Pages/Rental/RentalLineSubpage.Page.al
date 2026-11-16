@@ -52,6 +52,17 @@ page 50106 "Rental Line Subpage"
                     end;
                 }
 
+                field("Line Discount %"; Rec."Line Discount %")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the line discount percentage from the sales price list.';
+
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update(true);
+                    end;
+                }
+
                 field("Line Amount"; Rec."Line Amount")
                 {
                     ApplicationArea = All;
