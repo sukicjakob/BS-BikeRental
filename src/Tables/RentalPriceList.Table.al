@@ -32,7 +32,7 @@ table 50104 "Rental Price List"
             begin
                 if ("Ending Date" <> 0D) and ("Starting Date" > "Ending Date")
                 then
-                    Error('Starting Date cannot be after Ending Date.');
+                    Error(StartingAfterEndingErr);
             end;
         }
 
@@ -44,7 +44,7 @@ table 50104 "Rental Price List"
             begin
                 if ("Starting Date" <> 0D) and ("Ending Date" < "Starting Date")
                 then
-                    Error('Ending Date cannot be before Starting Date.');
+                    Error(EndingBeforeStartingErr);
             end;
         }
 
@@ -62,6 +62,11 @@ table 50104 "Rental Price List"
             Clustered = true;
         }
     }
+
+    var
+        StartingAfterEndingErr: Label 'Starting Date cannot be after Ending Date.';
+        EndingBeforeStartingErr: Label 'Ending Date cannot be before Starting Date.';
+        OverlappingPeriodErr: Label 'A price list with an overlapping period already exists for %1.', Comment = '%1 = Rental Type Code';
 
     trigger OnInsert()
     begin
@@ -86,6 +91,6 @@ table 50104 "Rental Price List"
         ExistingPriceList.SetFilter("Ending Date", '>=%1', "Starting Date");
 
         if not ExistingPriceList.IsEmpty() then
-            Error('A price list with an overlapping period already exists for %1.', "Rental Type Code");
+            Error(OverlappingPeriodErr, "Rental Type Code");
     end;
 }

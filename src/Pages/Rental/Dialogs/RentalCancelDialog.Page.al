@@ -33,12 +33,13 @@ page 50113 "Rental Cancel Dialog"
     var
         RentalNo: Code[20];
         CancellationReason: Text[100];
+        CancellationReasonMissingErr: Label 'Enter a reason for the cancellation.';
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     begin
         if CloseAction = Action::OK then
             if DelChr(CancellationReason, '=', ' ') = '' then
-                Error('Enter a reason for the cancellation.');
+                Error(CancellationReasonMissingErr);
 
         exit(true);
     end;

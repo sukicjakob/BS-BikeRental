@@ -15,6 +15,9 @@ codeunit 50101 "Rental Event Subscribers"
             exit;
 
         if RentalHeader.Status <> RentalHeader.Status::Returned then
-            Error('Sales order %1 cannot be posted because rental %2 has status "%3". The rental must have status "Returned".', SalesHeader."No.", RentalHeader."No.", RentalHeader.Status);
+            Error(RentalNotReturnedErr, SalesHeader."No.", RentalHeader."No.", RentalHeader.Status);
     end;
+
+    var
+        RentalNotReturnedErr: Label 'Sales order %1 cannot be posted because rental %2 has status "%3". The rental must have status "Returned".', Comment = '%1 = Sales Order No., %2 = Rental No., %3 = Rental status';
 }

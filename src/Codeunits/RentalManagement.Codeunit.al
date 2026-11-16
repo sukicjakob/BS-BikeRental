@@ -7,7 +7,7 @@ codeunit 50100 "Rental Management"
 
     begin
         if RentalHeader.Status <> RentalHeader.Status::Open then
-            Error('Rental %1 must have status Open before it can be started. Current status: %2', RentalHeader."No.", RentalHeader.Status);
+            Error(RentalNotOpenErr, RentalHeader."No.", RentalHeader.Status);
 
         CheckCustomerActiveRentalLimit(RentalHeader."Customer No.");
 
@@ -15,15 +15,15 @@ codeunit 50100 "Rental Management"
         RentalLine.SetRange("Line Type", RentalLine."Line Type"::Rental);
 
         if RentalLine.IsEmpty() then
-            Error('Rental %1 has no rental lines.', RentalHeader."No.");
+            Error(NoRentalLinesErr, RentalHeader."No.");
 
         RentalLine.FindSet();
         repeat
             if not BicycleRecord.Get(RentalLine."Bicycle No.") then
-                Error('Bicycle %1 does not exist.', RentalLine."Bicycle No.");
+                Error(BicycleNotFoundErr, RentalLine."Bicycle No.");
 
             if BicycleRecord.Status <> BicycleRecord.Status::Available then
-                Error('Bicycle %1 is not available for rental. Current status: %2', RentalLine."Bicycle No.", BicycleRecord.Status);
+                Error(BicycleNotAvailableErr, RentalLine."Bicycle No.", BicycleRecord.Status);
 
         until RentalLine.Next() = 0;
 
@@ -44,7 +44,7 @@ codeunit 50100 "Rental Management"
         BicycleRecord: Record "Bicycle";
     begin
         if DelChr(CancellationReason, '=', ' ') = '' then
-            Error('Enter a reason for the cancellation of rental %1.', RentalHeader."No.");
+            Error(CancellationReasonMissingErr, RentalHeader."No.");
 
         RentalHeader.LockTable();
         RentalHeader.Get(RentalHeader."No.");
@@ -68,9 +68,9 @@ codeunit 50100 "Rental Management"
 
             RentalHeader.Status::Returned:
                 if RentalHeader."Sales Order No." <> '' then
-                    Error('Rental %1 cannot be cancelled because sales order %2 has already been created for it.', RentalHeader."No.", RentalHeader."Sales Order No.");
+                    Error(CancelSalesOrderExistsErr, RentalHeader."No.", RentalHeader."Sales Order No.");
             else
-                Error('Rental %1 cannot be cancelled. Current status: %2.', RentalHeader."No.", RentalHeader.Status);
+                Error(CannotCancelErr, RentalHeader."No.", RentalHeader.Status);
         end;
 
         RentalHeader."Cancellation Reason" := CancellationReason;
@@ -86,13 +86,13 @@ codeunit 50100 "Rental Management"
 
     begin
         if RentalHeader.Status <> RentalHeader.Status::Active then
-            Error('Rental %1 must have status Active before it can be returned. Current status: %2', RentalHeader."No.", RentalHeader.Status);
+            Error(RentalNotActiveErr, RentalHeader."No.", RentalHeader.Status);
 
         RentalHeader.TestField("Rental Date");
         RentalHeader."Actual Return Date" := Today();
 
         if RentalHeader."Actual Return Date" < RentalHeader."Rental Date" then
-            Error('Actual Return Date cannot be before Rental date.');
+            Error(ReturnBeforeRentalDateErr);
 
         ActualRentalDays := RentalHeader."Actual Return Date" - RentalHeader."Rental Date";
 
@@ -103,12 +103,12 @@ codeunit 50100 "Rental Management"
         RentalLine.SetRange("Line Type", RentalLine."Line Type"::Rental);
 
         if RentalLine.IsEmpty() then
-            Error('Rental %1 has no rental lines.', RentalHeader."No.");
+            Error(NoRentalLinesErr, RentalHeader."No.");
 
         RentalLine.FindSet();
         repeat
             if not BicycleRecord.Get(RentalLine."Bicycle No.") then
-                Error('Bicycle %1 does not exist.', RentalLine."Bicycle No.");
+                Error(BicycleNotFoundErr, RentalLine."Bicycle No.");
 
         until RentalLine.Next() = 0;
 
@@ -134,14 +134,14 @@ codeunit 50100 "Rental Management"
         LineNo: Integer;
     begin
         if RentalHeader.Status <> RentalHeader.Status::Returned then
-            Error('Rental %1 must have status Returned before a sales order can be created.', RentalHeader."No.");
+            Error(RentalNotReturnedErr, RentalHeader."No.");
 
         RentalHeader.TestField("Sales Order No.", '');
 
         RentalLine.SetRange("Rental No.", RentalHeader."No.");
 
         if RentalLine.IsEmpty() then
-            Error('Rental %1 has no rental lines.', RentalHeader."No.");
+            Error(NoRentalLinesErr, RentalHeader."No.");
 
         SalesHeader.Init();
         SalesHeader."Document Type" := SalesHeader."Document Type"::Order;
@@ -185,17 +185,14 @@ codeunit 50100 "Rental Management"
         ActiveRentalCount: Integer;
     begin
         if not CustomerRecord.Get(CustomerNo) then
-            Error('Customer %1 does not exist.', CustomerNo);
+            Error(CustomerNotFoundErr, CustomerNo);
 
         RentalHeaderRecord.SetRange("Customer No.", CustomerNo);
         RentalHeaderRecord.SetRange(Status, RentalHeaderRecord.Status::Active);
         ActiveRentalCount := RentalHeaderRecord.Count();
 
         if ActiveRentalCount >= CustomerRecord."Max Active Rentals" then
-            Error(
-                'Customer %1 has already reached the maximum number of active rentals (%2).',
-                CustomerNo,
-                CustomerRecord."Max Active Rentals");
+            Error(MaxActiveRentalsErr, CustomerNo, CustomerRecord."Max Active Rentals");
     end;
 
     procedure AddRentalAdjustment(var RentalHeader: Record "Rental Header"; BicycleNo: Code[20]; AdjustmentDays: Integer; AdjustmentReason: Text[100])
@@ -213,17 +210,17 @@ codeunit 50100 "Rental Management"
         RentalHeader.TestField(Status, RentalHeader.Status::Returned);
 
         if AdjustmentDays < 1 then
-            Error('Adjustment days must be at least 1.');
+            Error(AdjustmentDaysErr);
 
         if DelChr(AdjustmentReason, '=', ' ') = '' then
-            Error('Enter a reason for the adjustment.');
+            Error(AdjustmentReasonMissingErr);
 
         // Če račun že obstaja, preverimo da je odprt in še neknjižen
         if RentalHeader."Sales Order No." <> '' then begin
             SalesHeader.LockTable();
 
             if not SalesHeader.Get(SalesHeader."Document Type"::Order, RentalHeader."Sales Order No.") then
-                Error('Sales order %1 no longer exists. It may have been fully posted or deleted. No adjustment was added.', RentalHeader."Sales Order No.");
+                Error(SalesOrderNotFoundErr, RentalHeader."Sales Order No.");
 
             SalesHeader.TestField(Status, SalesHeader.Status::Open);
             SalesHeader.TestField("Sell-to Customer No.", RentalHeader."Customer No.");
@@ -234,10 +231,10 @@ codeunit 50100 "Rental Management"
         OriginalLine.SetRange("Bicycle No.", BicycleNo);
 
         if not OriginalLine.FindFirst() then
-            Error('Bicycle %1 is not on rental %2.', BicycleNo, RentalHeader."No.");
+            Error(BicycleNotOnRentalErr, BicycleNo, RentalHeader."No.");
 
         if OriginalLine."Daily Rate" <= 0 then
-            Error('The daily rate for bicycle %1 must be greater than 0.', BicycleNo);
+            Error(DailyRateZeroErr, BicycleNo);
 
         // Upoštevamo morebitne predhodne popravke
         ExistingAdjustment.SetRange("Rental No.", RentalHeader."No.");
@@ -250,7 +247,7 @@ codeunit 50100 "Rental Management"
             until ExistingAdjustment.Next() = 0;
 
         if AlreadyAdjustedDays + AdjustmentDays > OriginalLine."Rental Days" then
-            Error('Only %1 additional days can be deducted for bicycle %2.', OriginalLine."Rental Days" - AlreadyAdjustedDays, BicycleNo);
+            Error(TooManyAdjustmentDaysErr, OriginalLine."Rental Days" - AlreadyAdjustedDays, BicycleNo);
 
         // Poiščemo naslednjo prosto številko vrstice izposoje
         AdjustmentLine.SetRange("Rental No.", RentalHeader."No.");
@@ -308,6 +305,27 @@ codeunit 50100 "Rental Management"
                 if RentalTypeRecord."Rental Item No." <> '' then
                     exit(RentalTypeRecord."Rental Item No.");
 
-        exit('RENTAL');
+        exit(DefaultRentalItemNoTok);
     end;
+
+    var
+        RentalNotOpenErr: Label 'Rental %1 must have status Open before it can be started. Current status: %2', Comment = '%1 = Rental No., %2 = Rental status';
+        RentalNotActiveErr: Label 'Rental %1 must have status Active before it can be returned. Current status: %2', Comment = '%1 = Rental No., %2 = Rental status';
+        RentalNotReturnedErr: Label 'Rental %1 must have status Returned before a sales order can be created.', Comment = '%1 = Rental No.';
+        NoRentalLinesErr: Label 'Rental %1 has no rental lines.', Comment = '%1 = Rental No.';
+        BicycleNotFoundErr: Label 'Bicycle %1 does not exist.', Comment = '%1 = Bicycle No.';
+        BicycleNotAvailableErr: Label 'Bicycle %1 is not available for rental. Current status: %2', Comment = '%1 = Bicycle No., %2 = Bicycle status';
+        BicycleNotOnRentalErr: Label 'Bicycle %1 is not on rental %2.', Comment = '%1 = Bicycle No., %2 = Rental No.';
+        CancellationReasonMissingErr: Label 'Enter a reason for the cancellation of rental %1.', Comment = '%1 = Rental No.';
+        CancelSalesOrderExistsErr: Label 'Rental %1 cannot be cancelled because sales order %2 has already been created for it.', Comment = '%1 = Rental No., %2 = Sales Order No.';
+        CannotCancelErr: Label 'Rental %1 cannot be cancelled. Current status: %2.', Comment = '%1 = Rental No., %2 = Rental status';
+        ReturnBeforeRentalDateErr: Label 'Actual Return Date cannot be before Rental date.';
+        CustomerNotFoundErr: Label 'Customer %1 does not exist.', Comment = '%1 = Customer No.';
+        MaxActiveRentalsErr: Label 'Customer %1 has already reached the maximum number of active rentals (%2).', Comment = '%1 = Customer No., %2 = Max Active Rentals';
+        AdjustmentDaysErr: Label 'Adjustment days must be at least 1.';
+        AdjustmentReasonMissingErr: Label 'Enter a reason for the adjustment.';
+        SalesOrderNotFoundErr: Label 'Sales order %1 no longer exists. It may have been fully posted or deleted. No adjustment was added.', Comment = '%1 = Sales Order No.';
+        DailyRateZeroErr: Label 'The daily rate for bicycle %1 must be greater than 0.', Comment = '%1 = Bicycle No.';
+        TooManyAdjustmentDaysErr: Label 'Only %1 additional days can be deducted for bicycle %2.', Comment = '%1 = Number of days, %2 = Bicycle No.';
+        DefaultRentalItemNoTok: Label 'RENTAL', Locked = true;
 }

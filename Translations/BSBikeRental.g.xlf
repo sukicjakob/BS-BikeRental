@@ -53,6 +53,26 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table Rental Header - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 3555928721 - NamedType 99657326" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer %1 does not exist.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Customer No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Header - NamedType CustomerNotFoundErr</note>
+        </trans-unit>
+        <trans-unit id="Table 3555928721 - NamedType 1010995106" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer %1 has already reached the maximum number of active rentals (%2).</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Customer No., %2 = Max Active Rentals</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Header - NamedType MaxActiveRentalsErr</note>
+        </trans-unit>
+        <trans-unit id="Table 3555928721 - NamedType 3281049953" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Rental Date cannot be after the Expected Return Date.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Header - NamedType RentalDateAfterReturnErr</note>
+        </trans-unit>
+        <trans-unit id="Table 3555928721 - NamedType 3934373278" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Expected Return Date cannot be before the Rental Date.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Header - NamedType ReturnBeforeRentalDateErr</note>
+        </trans-unit>
         <trans-unit id="Table 3555928721 - Field 3181556340 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Actual Return Date</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -108,6 +128,46 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table Rental Line - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 1466212778 - NamedType 1243899419" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bicycle %1 is already present on rental %2.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Bicycle No., %2 = Rental No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Line - NamedType BicycleAlreadyOnRentalErr</note>
+        </trans-unit>
+        <trans-unit id="Table 1466212778 - NamedType 2664893630" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bicycle %1 is not available. Current status: %2.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Bicycle No., %2 = Bicycle status</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Line - NamedType BicycleNotAvailableErr</note>
+        </trans-unit>
+        <trans-unit id="Table 1466212778 - NamedType 623590647" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bicycle with number %1 does not exist.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Bicycle No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Line - NamedType BicycleNotFoundErr</note>
+        </trans-unit>
+        <trans-unit id="Table 1466212778 - NamedType 3127035664" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bicycle %1 does not have a rental type.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Bicycle No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Line - NamedType NoRentalTypeErr</note>
+        </trans-unit>
+        <trans-unit id="Table 1466212778 - NamedType 893219307" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No sales price was found for item %1 (rental type %2).</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Item No., %2 = Rental Type Code</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Line - NamedType NoSalesPriceErr</note>
+        </trans-unit>
+        <trans-unit id="Table 1466212778 - NamedType 4276956299" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Rental header %1 does not exist.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Rental No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Line - NamedType RentalHeaderNotFoundErr</note>
+        </trans-unit>
+        <trans-unit id="Table 1466212778 - NamedType 2798854104" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Rental lines cannot be changed because rental %1 has status %2.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Rental No., %2 = Rental status</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Line - NamedType RentalNotOpenErr</note>
+        </trans-unit>
+        <trans-unit id="Table 1466212778 - NamedType 4004180954" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Rental type %1 does not exist.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Rental Type Code</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Line - NamedType RentalTypeNotFoundErr</note>
+        </trans-unit>
         <trans-unit id="Table 1466212778 - Field 1119435584 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Bicycle No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -157,6 +217,21 @@
           <source>Rental Price List</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table Rental Price List - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2972059161 - NamedType 2324429629" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ending Date cannot be before Starting Date.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Price List - NamedType EndingBeforeStartingErr</note>
+        </trans-unit>
+        <trans-unit id="Table 2972059161 - NamedType 235718525" size-unit="char" translate="yes" xml:space="preserve">
+          <source>A price list with an overlapping period already exists for %1.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Rental Type Code</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Price List - NamedType OverlappingPeriodErr</note>
+        </trans-unit>
+        <trans-unit id="Table 2972059161 - NamedType 172044418" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Starting Date cannot be after Ending Date.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Price List - NamedType StartingAfterEndingErr</note>
         </trans-unit>
         <trans-unit id="Table 2972059161 - Field 3004954119 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
@@ -208,6 +283,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table Rental Type - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 2572569964 - NamedType 2341980763" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Deposit Amount must be greater than 0 when a deposit is required.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Type - NamedType DepositAmountErr</note>
+        </trans-unit>
         <trans-unit id="Table 2572569964 - Field 3004954119 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Code</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -242,6 +322,101 @@
           <source>Requires Deposit</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table Rental Type - Field Requires Deposit - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 912615951 - NamedType 4087799069" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sales order %1 cannot be posted because rental %2 has status "%3". The rental must have status "Returned".</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Sales Order No., %2 = Rental No., %3 = Rental status</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Event Subscribers - NamedType RentalNotReturnedErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 1498235615" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Adjustment days must be at least 1.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType AdjustmentDaysErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 2889452806" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enter a reason for the adjustment.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType AdjustmentReasonMissingErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 2664893630" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bicycle %1 is not available for rental. Current status: %2</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Bicycle No., %2 = Bicycle status</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType BicycleNotAvailableErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 623590647" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bicycle %1 does not exist.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Bicycle No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType BicycleNotFoundErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 3718194190" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bicycle %1 is not on rental %2.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Bicycle No., %2 = Rental No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType BicycleNotOnRentalErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 1433803790" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enter a reason for the cancellation of rental %1.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Rental No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType CancellationReasonMissingErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 2524230103" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Rental %1 cannot be cancelled because sales order %2 has already been created for it.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Rental No., %2 = Sales Order No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType CancelSalesOrderExistsErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 3924535054" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Rental %1 cannot be cancelled. Current status: %2.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Rental No., %2 = Rental status</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType CannotCancelErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 99657326" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer %1 does not exist.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Customer No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType CustomerNotFoundErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 3482430056" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The daily rate for bicycle %1 must be greater than 0.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Bicycle No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType DailyRateZeroErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 1010995106" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer %1 has already reached the maximum number of active rentals (%2).</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Customer No., %2 = Max Active Rentals</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType MaxActiveRentalsErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 2904506547" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Rental %1 has no rental lines.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Rental No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType NoRentalLinesErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 3730855976" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Rental %1 must have status Active before it can be returned. Current status: %2</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Rental No., %2 = Rental status</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType RentalNotActiveErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 2798854104" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Rental %1 must have status Open before it can be started. Current status: %2</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Rental No., %2 = Rental status</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType RentalNotOpenErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 4087799069" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Rental %1 must have status Returned before a sales order can be created.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Rental No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType RentalNotReturnedErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 3934373278" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Actual Return Date cannot be before Rental date.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType ReturnBeforeRentalDateErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 1026981220" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sales order %1 no longer exists. It may have been fully posted or deleted. No adjustment was added.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Sales Order No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType SalesOrderNotFoundErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1666565541 - NamedType 2069695718" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Only %1 additional days can be deducted for bicycle %2.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Number of days, %2 = Bicycle No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Rental Management - NamedType TooManyAdjustmentDaysErr</note>
         </trans-unit>
         <trans-unit id="Page 283193157 - Control 4232699882 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Description</source>
@@ -303,6 +478,26 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Rental Adjustment Dialog - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 432997505 - NamedType 1498235615" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Adjustment days must be at least 1.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Rental Adjustment Dialog - NamedType AdjustmentDaysErr</note>
+        </trans-unit>
+        <trans-unit id="Page 432997505 - NamedType 2889452806" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enter a reason for the adjustment.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Rental Adjustment Dialog - NamedType AdjustmentReasonMissingErr</note>
+        </trans-unit>
+        <trans-unit id="Page 432997505 - NamedType 3718194190" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bicycle %1 is not on rental %2.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Bicycle No., %2 = Rental No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Rental Adjustment Dialog - NamedType BicycleNotOnRentalErr</note>
+        </trans-unit>
+        <trans-unit id="Page 432997505 - NamedType 3506304718" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bicycle must be selected.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Rental Adjustment Dialog - NamedType BicycleNotSelectedErr</note>
+        </trans-unit>
         <trans-unit id="Page 432997505 - Control 1211660521 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Adjustment</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -347,6 +542,11 @@
           <source>Cancel Rental</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Rental Cancel Dialog - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3206954658 - NamedType 1433803790" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enter a reason for the cancellation.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Rental Cancel Dialog - NamedType CancellationReasonMissingErr</note>
         </trans-unit>
         <trans-unit id="Page 3206954658 - Control 4162825173 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies why the rental is being cancelled. The cancellation cannot be undone.</source>

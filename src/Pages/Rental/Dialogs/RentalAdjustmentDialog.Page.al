@@ -49,7 +49,7 @@ page 50110 "Rental Adjustment Dialog"
                         RentalLine.SetRange("Bicycle No.", BicycleNo);
 
                         if RentalLine.IsEmpty() then
-                            Error('Bicycle %1 is not on rental %2.', BicycleNo, RentalNo);
+                            Error(BicycleNotOnRentalErr, BicycleNo, RentalNo);
                     end;
                 }
 
@@ -76,6 +76,10 @@ page 50110 "Rental Adjustment Dialog"
         AdjustmentDays: Integer;
         AdjustmentReason: Text[100];
         RentalNo: Code[20];
+        BicycleNotOnRentalErr: Label 'Bicycle %1 is not on rental %2.', Comment = '%1 = Bicycle No., %2 = Rental No.';
+        BicycleNotSelectedErr: Label 'Bicycle must be selected.';
+        AdjustmentDaysErr: Label 'Adjustment days must be at least 1.';
+        AdjustmentReasonMissingErr: Label 'Enter a reason for the adjustment.';
 
     trigger OnOpenPage()
     begin
@@ -86,13 +90,13 @@ page 50110 "Rental Adjustment Dialog"
     begin
         if CloseAction = Action::OK then begin
             if BicycleNo = '' then
-                Error('Bicycle must be selected.');
+                Error(BicycleNotSelectedErr);
 
             if AdjustmentDays < 1 then
-                Error('Adjustment days must be at least 1');
+                Error(AdjustmentDaysErr);
 
             if DelChr(AdjustmentReason, '=', ' ') = '' then
-                Error('Enter a reason for the adjustment.');
+                Error(AdjustmentReasonMissingErr);
         end;
 
         exit(true);

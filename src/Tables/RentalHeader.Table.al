@@ -40,7 +40,7 @@ table 50102 "Rental Header"
                     exit;
 
                 if not CustomerRecord.Get("Customer No.") then
-                    Error('Customer %1 does not exist.', "Customer No.");
+                    Error(CustomerNotFoundErr, "Customer No.");
 
                 RentalHeaderRecord.SetRange("Customer No.", "Customer No.");
                 RentalHeaderRecord.SetRange("Status", "Rental Status"::Active);
@@ -48,7 +48,7 @@ table 50102 "Rental Header"
                 ActiveRentalCount := RentalHeaderRecord.Count();
 
                 if ActiveRentalCount >= CustomerRecord."Max Active Rentals" then
-                    Error('Customer %1 has already reached the maximum number of active rentals (%2).', "Customer No.", CustomerRecord."Max Active Rentals");
+                    Error(MaxActiveRentalsErr, "Customer No.", CustomerRecord."Max Active Rentals");
             end;
         }
 
@@ -59,7 +59,7 @@ table 50102 "Rental Header"
             trigger OnValidate()
             begin
                 if ("Expected Return Date" <> 0D) and ("Rental Date" > "Expected Return Date") then
-                    Error('Rental Date cannot be after the Expected Return Date.');
+                    Error(RentalDateAfterReturnErr);
             end;
         }
 
@@ -70,7 +70,7 @@ table 50102 "Rental Header"
             trigger OnValidate()
             begin
                 if ("Rental Date" <> 0D) and ("Expected Return Date" <> 0D) and ("Expected Return Date" < "Rental Date") then
-                    Error('Expected Return Date cannot be before the Rental Date.');
+                    Error(ReturnBeforeRentalDateErr);
             end;
         }
 
@@ -121,8 +121,12 @@ table 50102 "Rental Header"
             Clustered = true;
         }
     }
+
     var
-        No: Codeunit "No. Series";
+        CustomerNotFoundErr: Label 'Customer %1 does not exist.', Comment = '%1 = Customer No.';
+        MaxActiveRentalsErr: Label 'Customer %1 has already reached the maximum number of active rentals (%2).', Comment = '%1 = Customer No., %2 = Max Active Rentals';
+        RentalDateAfterReturnErr: Label 'Rental Date cannot be after the Expected Return Date.';
+        ReturnBeforeRentalDateErr: Label 'Expected Return Date cannot be before the Rental Date.';
 
     trigger OnInsert()
     var

@@ -43,7 +43,7 @@ table 50100 "Rental Type"
             trigger OnValidate()
             begin
                 if "Requires Deposit" and ("Deposit Amount" <= 0) then
-                    Error('Deposit Amount must be greater than 0 when a deposit is required.');
+                    Error(DepositAmountErr);
             end;
         }
 
@@ -61,4 +61,7 @@ table 50100 "Rental Type"
             Clustered = true;
         }
     }
+
+    var
+        DepositAmountErr: Label 'Deposit Amount must be greater than 0 when a deposit is required.';
 }
