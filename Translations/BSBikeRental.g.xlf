@@ -48,6 +48,76 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table Bicycle - Field Status - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 4126724962 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Mechanic</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Mechanic - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 4126724962 - NamedType 3610250065" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Mechanic %1 cannot be deleted because it is the default mechanic for service type %2.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Mechanic No., %2 = Service Type Code</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Mechanic - NamedType MechanicSetForServiceErr</note>
+        </trans-unit>
+        <trans-unit id="Table 4126724962 - Field 3543129988 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies that the mechanic cannot be assigned to new service orders.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Mechanic - Field Blocked - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Table 4126724962 - Field 3543129988 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Blocked</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Mechanic - Field Blocked - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 4126724962 - Field 1541011875 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the mechanic's E-Mail address.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Mechanic - Field E-Mail - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Table 4126724962 - Field 1541011875 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>E-Mail</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Mechanic - Field E-Mail - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 4126724962 - Field 89370113 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the mechanic's hourly rate to calculate labor costs.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Mechanic - Field Hourly Rate - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Table 4126724962 - Field 89370113 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Hourly Rate</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Mechanic - Field Hourly Rate - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 4126724962 - Field 2961552353 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the mechanic's name.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Mechanic - Field Name - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Table 4126724962 - Field 2961552353 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Mechanic - Field Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 4126724962 - Field 4200184881 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the mechanic's id number.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Mechanic - Field No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Table 4126724962 - Field 4200184881 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Mechanic - Field No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 4126724962 - Field 3986423421 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the mechanic's phone number.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Mechanic - Field Phone No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Table 4126724962 - Field 3986423421 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Phone No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Mechanic - Field Phone No. - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Table 3555928721 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Rental Header</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -323,6 +393,66 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table Rental Type - Field Requires Deposit - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Table 1896974463 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Service Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Service Type - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1896974463 - NamedType 915971221" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Mechanic %1 is currently blocked and cannot be selected.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Mechanic No.</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Service Type - NamedType MechanicBlockedErr</note>
+        </trans-unit>
+        <trans-unit id="Table 1896974463 - Field 3004954119 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the Service Type code.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Service Type - Field Code - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Table 1896974463 - Field 3004954119 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Service Type - Field Code - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1896974463 - Field 1298091241 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the default duration of the Service Type (in hours).</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Service Type - Field Default Duration (Hours) - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Table 1896974463 - Field 1298091241 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Default Duration (Hours)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Service Type - Field Default Duration (Hours) - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1896974463 - Field 1040050998 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies which Mechanic belongs to the Service Type by default.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Service Type - Field Default Mechanic No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Table 1896974463 - Field 1040050998 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Default Mechanic No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Service Type - Field Default Mechanic No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1896974463 - Field 3461834954 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the Service Type description.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Service Type - Field Description - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Table 1896974463 - Field 3461834954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Service Type - Field Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1896974463 - Field 126195929 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies which Service Item belongs to the Service Type.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Service Type - Field Service Item No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Table 1896974463 - Field 126195929 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Service Item No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Service Type - Field Service Item No. - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Codeunit 912615951 - NamedType 4087799069" size-unit="char" translate="yes" xml:space="preserve">
           <source>Sales order %1 cannot be posted because rental %2 has status "%3". The rental must have status "Returned".</source>
           <note from="Developer" annotates="general" priority="2">%1 = Sales Order No., %2 = Rental No., %3 = Rental status</note>
@@ -472,6 +602,26 @@
           <source>Import Bicycles</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Bicycle List - Action ImportBicycles - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2677501222 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Mechanic</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Mechanic Card - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2677501222 - Control 3993128796 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Contact info</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Mechanic Card - Control Contact - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2677501222 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>General info</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Mechanic Card - Control General - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3801661824 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Mechanics</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Mechanic List - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 432997505 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Add Rental Adjustment</source>
@@ -728,6 +878,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Rental Type List - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 997985033 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Service Types</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page Service Type List - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 1897527834 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Rental Report</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -827,6 +982,21 @@
           <source>Retired</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum Bicycle Status - EnumValue Retired - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 4220391888 - EnumValue 3665605423 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Completed</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum Bike Service Status - EnumValue Completed - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 4220391888 - EnumValue 1090713286 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>In Progress</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum Bike Service Status - EnumValue In Progress - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 4220391888 - EnumValue 4259830144 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Open</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum Bike Service Status - EnumValue Open - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 3449587706 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Rental Line Type</source>

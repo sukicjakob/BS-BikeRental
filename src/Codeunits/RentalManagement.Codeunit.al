@@ -89,7 +89,7 @@ codeunit 50100 "Rental Management"
             Error(RentalNotActiveErr, RentalHeader."No.", RentalHeader.Status);
 
         RentalHeader.TestField("Rental Date");
-        RentalHeader."Actual Return Date" := Today();
+        RentalHeader."Actual Return Date" := WorkDate();
 
         if RentalHeader."Actual Return Date" < RentalHeader."Rental Date" then
             Error(ReturnBeforeRentalDateErr);
@@ -148,8 +148,8 @@ codeunit 50100 "Rental Management"
         SalesHeader.Insert(true);
 
         SalesHeader.Validate("Sell-to Customer No.", RentalHeader."Customer No.");
-        SalesHeader.Validate("Document Date", Today());
-        SalesHeader.Validate("Posting Date", Today());
+        SalesHeader.Validate("Document Date", WorkDate());
+        SalesHeader.Validate("Posting Date", WorkDate());
         SalesHeader.Modify(true);
 
         LineNo := 0;
