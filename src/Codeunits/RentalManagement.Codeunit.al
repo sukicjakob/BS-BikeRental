@@ -9,6 +9,9 @@ codeunit 50100 "Rental Management"
         if RentalHeader.Status <> RentalHeader.Status::Open then
             Error(RentalNotOpenErr, RentalHeader."No.", RentalHeader.Status);
 
+        RentalHeader.TestField("Customer No.");
+        RentalHeader.TestField("Rental Date");
+
         CheckCustomerActiveRentalLimit(RentalHeader."Customer No.");
 
         RentalLine.SetRange("Rental No.", RentalHeader."No.");

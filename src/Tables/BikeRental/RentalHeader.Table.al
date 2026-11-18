@@ -127,6 +127,7 @@ table 50102 "Rental Header"
         MaxActiveRentalsErr: Label 'Customer %1 has already reached the maximum number of active rentals (%2).', Comment = '%1 = Customer No., %2 = Max Active Rentals';
         RentalDateAfterReturnErr: Label 'Rental Date cannot be after the Expected Return Date.';
         ReturnBeforeRentalDateErr: Label 'Expected Return Date cannot be before the Rental Date.';
+        RentalDeleteNotAllowedErr: Label 'Rental %1 in status %2 cannot be deleted.', Comment = '%1 = Rental No., %2 = Rental Status Code';
 
     trigger OnInsert()
     var
@@ -139,6 +140,20 @@ table 50102 "Rental Header"
             "No. Series" := RentalSetup."Rental Nos.";
             "No." := NoSeries.GetNextNo("No. Series");
         end;
+
+        if "Rental Date" = 0D then
+            "Rental Date" := WorkDate();
+    end;
+
+    trigger OnDelete()
+    var
+        RentalLine: Record "Rental Line";
+    begin
+        if not (Status in [Status::Open, Status::Cancelled]) then
+            Error(RentalDeleteNotAllowedErr, "No.", Status);
+
+        RentalLine.SetRange("Rental No.", "No.");
+        RentalLine.DeleteAll(false);
     end;
 
     procedure AssistEdit(OldRentalHeader: Record "Rental Header"): Boolean

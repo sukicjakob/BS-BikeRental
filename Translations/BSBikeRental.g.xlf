@@ -138,6 +138,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table Rental Header - NamedType RentalDateAfterReturnErr</note>
         </trans-unit>
+        <trans-unit id="Table 3555928721 - NamedType 160106283" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Rental %1 in status %2 cannot be deleted.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Rental No., %2 = Rental Status Code</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table Rental Header - NamedType RentalDeleteNotAllowedErr</note>
+        </trans-unit>
         <trans-unit id="Table 3555928721 - NamedType 3934373278" size-unit="char" translate="yes" xml:space="preserve">
           <source>Expected Return Date cannot be before the Rental Date.</source>
           <note from="Developer" annotates="general" priority="2"></note>
